@@ -13,8 +13,11 @@ using namespace std;
 
 #define LIMPAR system("cls");
 
+vector<string> ListaNomes = {"Luiz","Luis", "Marcos", "Luan", "Roberto", "Bernado", "Lucas", "Rogilson", "Romário", "Bob", "João", "Manuel"};
+
 class Funcionario{
     public:
+        string nome;
         int id;
         map<string, int> atributos = {
             {"Inteligencia", 1},

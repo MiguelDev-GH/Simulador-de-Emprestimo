@@ -16,10 +16,6 @@ int main(){
     getline(cin, op);
     criarEmpresa(op);
 
-    criarEmpresa("Luiz3");
-    criarEmpresa("BigodinhosRaspados Company");
-    criarEmpresa("MessiDonald");
-
     while(op != "SAIR"){
         menu();
     }

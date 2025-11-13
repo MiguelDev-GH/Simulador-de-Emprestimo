@@ -79,6 +79,7 @@ void SistemaContratacao(){
         double salario = 0;
 
         Funcionario novo;
+        novo.nome = ListaNomes[(rand() % ListaNomes.size()) + 1];
         novo.id = i;
 
         for(auto& func : novo.atributos){
@@ -93,10 +94,10 @@ void SistemaContratacao(){
 
     }
 
-    cout << "----------Menu-De-Contratação------------\n";
+    cout << "----------Menu-De-Contratação------------\n\n";
     for(auto i : Contratacoes){
 
-        printf("> %d <\n",i.overall);
+        printf("%s > %d <\n",i.nome.c_str(),i.overall);
 
         for(auto& func : i.atributos){
             cout << func.first << ": " << func.second << " | ";
