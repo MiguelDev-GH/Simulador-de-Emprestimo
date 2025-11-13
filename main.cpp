@@ -17,7 +17,14 @@ int main(){
     criarEmpresa(op);
 
     while(op != "SAIR"){
+        if(dia % 7 == 0){semana();}
         menu();
+
+        if(acoesPorDia <= 0 || pularDia == 1){
+            dia++;
+            acoesPorDia = 3;   
+            pularDia = 0;
+        }
     }
 
     return 0;

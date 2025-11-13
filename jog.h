@@ -24,11 +24,10 @@ class Funcionario{
             {"Desenvolvimento e Pesquisa", 1},
             {"Motivacao", 1}
         };
+
+        double custoMelhoria;
         double salario;
         int overall = 0;
-    
-
-
 };
 
 class Empresa{
@@ -47,6 +46,8 @@ class Empresa{
 string NomeDoEmpresario;
 double dinheiro;
 int dia;
+int acoesPorDia = 3;
+int pularDia = 0;
 
 string op;
 
@@ -59,3 +60,5 @@ void ContratarFuncionario();
 void SortearContratacoes();
 void SistemaContratacao();
 void limpar_buffer();
+
+void semana();
