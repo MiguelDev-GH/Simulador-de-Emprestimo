@@ -60,6 +60,6 @@ void SortearContratacoes();
 void SistemaContratacao();
 void limpar_buffer();
 
-void ganhoDiario(vector<Empresa> Empresas);
+void ganhoDiario(vector<Empresa>& Empresas);
 
 void semana();
