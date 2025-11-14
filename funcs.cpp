@@ -109,6 +109,7 @@ void menu(){
 
     LIMPAR
     
+    ganhoDiario(Empresas);
     cout << "~ " << NomeDoEmpresario << " | " << "Dia " << dia << " | " << "R$ " << dinheiro << endl;
     cout << "Ações restantes: " << acoesPorDia << endl;
     
@@ -157,7 +158,6 @@ void SortearContratacoes(){
 
         Funcionario novo;
         novo.nome = ListaNomes[(rand() % ListaNomes.size())];
-        novo.id = i;
 
         for(auto& func : novo.atributos){
             func.second = (rand() % 5) + 1;
@@ -212,3 +212,25 @@ void SistemaContratacao(){
 
     }
 }
+
+/*
+
+void ganhoDiario(vector<Empresa> Empresas){
+    double ganho;
+
+    for(int i = 0; i < Empresas.size(); i++){
+        Empresa emp = Empresas[i];
+
+        int MotivacaoTotal = 0;
+
+        for(auto& j : emp.funcionarios){
+            MotivacaoTotal += j.atributos["Motivacao"];
+        }
+
+        cout << MotivacaoTotal << endl;
+
+    }
+
+}
+
+*/

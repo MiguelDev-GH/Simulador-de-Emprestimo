@@ -18,7 +18,6 @@ vector<string> ListaNomes = {"Luiz","Luis", "Marcos", "Luan", "Roberto", "Bernad
 class Funcionario{
     public:
         string nome;
-        int id;
         map<string, int> atributos = {
             {"Inteligencia", 1},
             {"Desenvolvimento e Pesquisa", 1},
@@ -60,5 +59,7 @@ void ContratarFuncionario();
 void SortearContratacoes();
 void SistemaContratacao();
 void limpar_buffer();
+
+void ganhoDiario(vector<Empresa> Empresas);
 
 void semana();
