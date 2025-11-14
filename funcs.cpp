@@ -243,6 +243,14 @@ void SistemaContratacao(){
 
         funcNum = stoi(op) - 1;
 
+        if(dinheiro < Contratacoes[funcNum].salario){
+            LIMPAR
+            cout << "> Dinheiro Insuficiente! <\n" << endl;
+            cout << "Aperte ENTER para voltar..." << endl;
+            getchar();
+            return;
+        }
+
         if(!Contratacoes[funcNum].contratavel){
             LIMPAR
             cout << "> Funcionário indisponível! <\n" << endl;
