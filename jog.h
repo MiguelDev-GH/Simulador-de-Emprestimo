@@ -24,6 +24,7 @@ class Funcionario{
             {"Motivacao", 1}
         };
 
+        bool contratavel;
         double custoMelhoria;
         double salario;
         int overall = 0;

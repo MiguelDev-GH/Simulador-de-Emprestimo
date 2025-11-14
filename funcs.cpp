@@ -94,6 +94,7 @@ void EmpresasFuncionarios(Empresa& emp){
                 acoesPorDia--;
                 func.overall += 1;
                 func.custoMelhoria = (func.salario * 0.45) + (50 * func.overall);
+                func.salario += 50;
             } else {
                 LIMPAR
                 cout << "- Dinheiro INSUFICIENTE! -\n" << endl;
@@ -167,6 +168,7 @@ void SortearContratacoes(){
             salario += func.second;
         }        
         
+        novo.contratavel = true;
         novo.salario = ((salario*salario) * 45) + 1200;
         novo.custoMelhoria = (novo.salario * 0.45) + (5 * novo.overall);
 
@@ -180,15 +182,23 @@ void SistemaContratacao(){
     LIMPAR
 
     cout << "----------Menu-De-Contratação------------\n\n";
+
+    int cont = 1;
+
     for(int i = 0; i < Contratacoes.size();i++){
         
-        printf("%d- %s > %d <\n",i+1, Contratacoes[i].nome.c_str(), Contratacoes[i].overall);
+        if(Contratacoes[i].contratavel){
+            printf("%d- %s > %d <\n",i+1, Contratacoes[i].nome.c_str(), Contratacoes[i].overall);
 
-        for(auto& func : Contratacoes[i].atributos){
-            cout << func.first << ": " << func.second << " | ";
+            for(auto& func : Contratacoes[i].atributos){
+                cout << func.first << ": " << func.second << " | ";
+            }
+
+            cout << "\nSalário: R$ " << Contratacoes[i].salario << "\n" << endl;
+
+        } else {
+            printf("=- FUNCIONÁRIO INDISPONÍVEL -=");
         }
-
-        cout << "\nSalário: R$ " << Contratacoes[i].salario << "\n" << endl;
     }
 
     cout << "Digite o número do funcionário que deseja contratar!\n (Qualquer outra entrada para voltar)" << endl;
@@ -209,7 +219,7 @@ void SistemaContratacao(){
         cout << endl;
         input();
 
-        if(op >= "1" && op <= to_string(Empresas.size())){
+        if(op >= "1" && op <= to_string(Empresas.size()) && Empresas[stoi(op) - 1].funcionarios[funcNum].contratavel){
             Empresas[stoi(op) - 1].funcionarios.push_back(Contratacoes[funcNum]);
             acoesPorDia--;
         }
@@ -227,12 +237,13 @@ void ganhoDiario(vector<Empresa>& Empresas){
         MotivacaoTotal = 0;
 
         for(int j = 0; j < emp.funcionarios.size() ;j++){
-            cout << emp.funcionarios[j].atributos["Motivacao"] << endl;
             MotivacaoTotal += emp.funcionarios[j].atributos["Motivacao"];
         }
 
-        cout << MotivacaoTotal << endl;
+        ganho += MotivacaoTotal;
 
     }
+
+
 
 }
