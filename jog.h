@@ -51,6 +51,9 @@ int pularDia = 0;
 
 string op;
 
+bool noticiaAtivada = false;
+string noticiaMensagem;
+
 vector<Empresa> Empresas;
 vector<Funcionario> Contratacoes;
 
@@ -60,6 +63,8 @@ void ContratarFuncionario();
 void SortearContratacoes();
 void SistemaContratacao();
 void limpar_buffer();
+
+void noticia(string mensagem);
 
 void ganhoDiario(vector<Empresa>& Empresas);
 

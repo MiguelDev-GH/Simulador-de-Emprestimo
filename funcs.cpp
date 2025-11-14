@@ -20,6 +20,7 @@ void criarEmpresa(string nome){
 void semana(){
     Contratacoes.clear();
     SortearContratacoes();
+    noticia("Novos candidatos apareceram!");
 }
 
 void DetalharEmpresa(Empresa& emp){
@@ -95,6 +96,7 @@ void EmpresasFuncionarios(Empresa& emp){
                 func.overall += 1;
                 func.custoMelhoria = (func.salario * 0.25) + (50 * func.overall);
                 func.salario += 50;
+                noticia(func.nome + " foi melhorado!");
             } else {
                 LIMPAR
                 cout << "- Dinheiro INSUFICIENTE! -\n" << endl;
@@ -106,11 +108,24 @@ void EmpresasFuncionarios(Empresa& emp){
 
 }
 
-void menu(){
+void noticia(string mensagem){
+    noticiaMensagem = mensagem;
+    noticiaAtivada = true;
+    cout << "* " << mensagem << " *" << "\n" << endl;
+}
 
-    LIMPAR
+void menu(){
     
     ganhoDiario(Empresas);
+
+    if(noticiaAtivada){
+        LIMPAR
+        noticia(noticiaMensagem);
+        noticiaAtivada = false;
+    } else {
+        LIMPAR
+    }
+
     cout << "~ " << NomeDoEmpresario << " | " << "Dia " << dia << " | " << "R$ " << dinheiro << endl;
     cout << "Ações restantes: " << acoesPorDia << endl;
     
@@ -249,6 +264,7 @@ void SistemaContratacao(){
             Empresas[stoi(op) - 1].funcionarios.push_back(Contratacoes[funcNum]);
             Empresas[stoi(op) - 1].funcionarios.back().contratavel = false;
             Contratacoes[funcNum].contratavel = false;
+            noticia(Contratacoes[funcNum].nome + " foi contratado em " + Empresas[stoi(op) - 1].nome + "!");
             acoesPorDia--;
         }
     }
