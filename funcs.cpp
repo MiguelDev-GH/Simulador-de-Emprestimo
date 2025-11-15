@@ -117,7 +117,34 @@ void EmpresasVender(Empresa& emp){
     input();
 
     if(op == "s" || op == "S"){
-        Empresas.erase(Empresas.begin(), Empresas.end(), emp);
+
+        bool encontrado = false;
+        int cont = 0;
+    
+        for(auto& emps : Empresas){
+            if(emps == emp){
+                encontrado = true;
+                break;
+            }
+            cont++;
+        }
+
+        LIMPAR
+
+        if(encontrado){
+            EmpresasFinalizadas[emp.nome] = emp.valor;
+            Empresas.erase(Empresas.begin() + cont);
+        } else {
+            cout << "Algum erro ao tentar vender a empresa " + emp.nome << "\n" << endl;
+            cout << "Aperte ENTER para voltar" << endl;
+            getchar();
+            return;
+        }
+
+        cout << emp.nome << " foi vendido por R$" << emp.valor << "\n" << endl;
+        cout << "Aperte ENTER para voltar" << endl;
+        getchar();
+
     }
 }
 
@@ -128,7 +155,49 @@ void noticia(string mensagem){
     cout << "* " << mensagem << " *" << "\n" << endl;
 }
 
+void fimDeJogo(){
+    LIMPAR
+    cout << "SEU FIM...\n" << endl;
+    cout << "Você esta sem empresas para administrar..." << endl;
+
+    double patrimonioTotal = dinheiro;
+    double empresasValorTotal = 0;
+
+    for(auto& emps : EmpresasFinalizadas){
+        patrimonioTotal += emps.second;
+        empresasValorTotal += emps.second;
+    }
+
+    if(patrimonioTotal <= 5000){
+        cout << "Infelizmente você FALIU por completo na sua carreira!" << endl;
+        cout << "Com esse patrimonio no nome " << NomeDoEmpresario << " foi descoberto que administrar o financeiro NÃO ERA seu forte.\n" << endl;
+    } else if(patrimonioTotal <= 10000){
+        cout << "Pelo visto não foram muitas conquistas no nome de " << NomeDoEmpresario << endl;
+        cout << "Mas pelo menos dar pra alugar uma kitnet por um tempinho...\n"<< endl;
+    } else if(patrimonioTotal <= 50000){
+        cout << NomeDoEmpresario << " conseguiu algo pra se sustentar por um período de tempo (Menos de 1 ano com certeza)" << endl;
+        cout << "É bom dizer que foi uma boa tentativa de construir um futuro...\n" << endl;
+    }
+
+    cout << "~ Conquistas:" << endl;
+    cout << "Dinheiro: R$" << dinheiro << "\n" << endl;
+
+    for(auto& emps : EmpresasFinalizadas){
+        cout << "- " << emps.first << " R$" << emps.second << endl;
+    }
+
+    cout << "Valor total de empresas: R$" << empresasValorTotal << endl;
+
+    cout << "\nPatrimônio total: R$\n" << patrimonioTotal << endl;
+    exit(1);
+}
+
 void menu(){
+
+    if(Empresas.size() <= 0){
+        // Aqui tem que adicionar mais um critério, que é de quando você não tem mais dinheiro para pagar os funcionarios;
+        fimDeJogo();
+    }
     
     ganhoDiario(Empresas);
 
@@ -294,7 +363,7 @@ void SistemaContratacao(){
 }
 
 void ganhoDiario(vector<Empresa>& Empresas){
-    double ganho;
+    double ganho = 0;
 
     int MotivacaoTotal = 0;
 
@@ -310,4 +379,8 @@ void ganhoDiario(vector<Empresa>& Empresas){
         ganho += MotivacaoTotal;
 
     }
+
+    ganho *= 50;
+
+    dinheiro += ganho;
 }

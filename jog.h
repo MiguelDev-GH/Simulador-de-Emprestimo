@@ -6,6 +6,7 @@
 #include <locale>
 #include <cstdlib>
 #include <chrono>
+#include <algorithm>
 
 using namespace std;
 
@@ -41,6 +42,8 @@ class Empresa{
             {"Infraestrutura", 1},
             {"Marketing", 1}
         };
+
+        bool operator==(const Empresa& outra) const {return nome == outra.nome;}
 };
 
 string NomeDoEmpresario;
@@ -56,10 +59,11 @@ string noticiaMensagem;
 
 vector<Empresa> Empresas;
 vector<Funcionario> Contratacoes;
+map<string, double> EmpresasFinalizadas;
 
 void menu();
 void criarEmpresa(string nome);
-void EmpresasVender(Empresas[empNum]);
+void EmpresasVender(Empresa& emp);
 
 void ContratarFuncionario();
 void SortearContratacoes();
