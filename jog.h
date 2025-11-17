@@ -53,6 +53,10 @@ int dia = 1;
 int acoesPorDia = 3;
 int pularDia = 0;
 
+map<string,int> contarDias = {
+    {"Pagar Funcionarios", -1}
+};
+
 bool negociacaoFeita = false;
 
 string op;
@@ -77,4 +81,13 @@ void noticia(string mensagem);
 
 void ganhoDiario(vector<Empresa>& Empresas);
 
+void fimDeJogo(int tipoDeFim);
+
+void Trabalhos();
+
 void semana();
+void mes();
+void prasos();
+
+void DetalharEmpresa(Empresa& emp);
+void EmpresasFuncionarios(Empresa& emp);

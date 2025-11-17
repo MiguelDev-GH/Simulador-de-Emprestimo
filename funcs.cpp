@@ -17,10 +17,60 @@ void criarEmpresa(string nome){
 
 }
 
+void prasos(){
+
+    for(auto& prs : contarDias){
+        if(prs.second != -1){
+            prs.second--;
+        }
+
+        if(prs.second == 0){
+            if(prs.first == "Pagar Funcionarios"){
+                double total = 0;
+
+                for(int i = 0; i < Empresas.size(); i++){
+                    for(auto& func : Empresas[i].funcionarios){
+                        total += func.salario;
+                    }
+                }
+
+                if(total > dinheiro){
+                    fimDeJogo(2);
+                } else {
+                    noticia("Como esperado hoje você pagou seus funcionários!");
+                    dinheiro -= total;
+                }
+
+            }
+        } else if(prs.second == 1){
+            noticia("Amanhã é o ÚLTIMO DIA para pagar todos os seus funcionários!");
+        }
+    }
+}
+
 void semana(){
     Contratacoes.clear();
     SortearContratacoes();
     noticia("Novos candidatos apareceram!");
+}
+
+void mes(){
+
+    double pagarFuncionario = 0;
+
+    for(int i = 0; i < Empresas.size(); i++){
+        for(auto& func : Empresas[i].funcionarios){
+            pagarFuncionario += func.salario;
+        }
+    }
+
+    if(pagarFuncionario > dinheiro){
+        noticia("Você tem 7 dias para pagar todos os seus funcionários, total de R$" + to_string(pagarFuncionario) + " !");
+        contarDias["Pagar Funcionarios"] = 7;
+    } else {
+        noticia("Você pagou seus funcionários!");
+        dinheiro -= pagarFuncionario;
+    }
 }
 
 void DetalharEmpresa(Empresa& emp){
@@ -163,10 +213,12 @@ void noticia(string mensagem){
     cout << "* " << mensagem << " *" << "\n" << endl;
 }
 
-void fimDeJogo(){
+void fimDeJogo(int tipoDeFim){
     LIMPAR
+
     cout << "SEU FIM...\n" << endl;
-    cout << "Você esta sem empresas para administrar..." << endl;
+    if(tipoDeFim == 1) cout << "Você esta sem empresas para administrar..." << endl;
+    else if(tipoDeFim == 2) cout << "Você não tem dinheiro suficiente para pagar todos os seu funcionários..." << endl;
 
     double patrimonioTotal = dinheiro;
     double empresasValorTotal = 0;
@@ -196,7 +248,7 @@ void fimDeJogo(){
 
     cout << "Valor total de empresas: R$" << empresasValorTotal << endl;
 
-    cout << "\nPatrimônio total: R$\n" << patrimonioTotal << endl;
+    cout << "\nPatrimônio total: R$" << patrimonioTotal << endl;
     exit(1);
 }
 
@@ -234,10 +286,7 @@ void Trabalhos(){
 
 void menu(){
 
-    if(Empresas.size() <= 0){
-        // Aqui tem que adicionar mais um critério, que é de quando você não tem mais dinheiro para pagar os funcionarios;
-        fimDeJogo();
-    }
+    if(Empresas.size() <= 0) fimDeJogo(1);
     
     ganhoDiario(Empresas);
 
@@ -399,6 +448,7 @@ void SistemaContratacao(){
             Empresas[stoi(op) - 1].funcionarios.push_back(Contratacoes[funcNum]);
             Empresas[stoi(op) - 1].funcionarios.back().contratavel = false;
             Contratacoes[funcNum].contratavel = false;
+            dinheiro -= Contratacoes[funcNum].salario;
             noticia(Contratacoes[funcNum].nome + " foi contratado em " + Empresas[stoi(op) - 1].nome + "!");
             acoesPorDia--;
         }

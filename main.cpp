@@ -19,7 +19,7 @@ int main(){
     SortearContratacoes();
 
     while(op != "SAIR"){
-        if(op == "DINHEIRO") dinheiro+=10000;
+        if(op == "DINHEIRO") dinheiro+=1000;
         
         menu();
 
@@ -27,10 +27,14 @@ int main(){
             dia++;
             acoesPorDia = 3;   
             pularDia = 0;
+            
+            prasos();
 
             if(dia % 7 == 0){
                 semana();
-            } else if(dia & 30 == 0){}
+            } else if(dia % 30 == 0){
+                mes();
+            }
         }
     }
 
